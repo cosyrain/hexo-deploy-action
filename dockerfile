@@ -1,19 +1,13 @@
-# Container image that runs your code
-FROM node:10
+FROM node:12-buster-slim
 
-LABEL "com.github.actions.name"="Hexo Deploy"
-LABEL "com.github.actions.description"="This GitHub action will handle the building and deploying process of hexo project."
-LABEL "com.github.actions.icon"="git-commit"
-LABEL "com.github.actions.color"="orange"
+LABEL version="1.0.0"
+LABEL repo="https://github.com/cosyrain/hexo-deploy-action"
+LABEL maintainer="cosyrain"
 
-LABEL "repository"="https://github.com/renzhaosy/hexo-deploy-action"
-LABEL "homepage"="https://github.com/renzhaosy/hexo-deploy-action"
-LABEL "maintainer"="renzhaosy"
-
-# Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
 
-RUN chmod +x /entrypoint.sh
+RUN apt-get update > /dev/null && \
+    apt-get install -y git openssh-client > /dev/null ;\
+    chmod +x /entrypoint.sh
 
-# Code file to execute when the docker container starts up (`entrypoint.sh`)
 ENTRYPOINT ["/entrypoint.sh"]
