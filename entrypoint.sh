@@ -67,7 +67,7 @@ git remote add origin "${REPOSITORY_PATH}"
 #   git checkout --orphan $BRANCH
 # fi
 
-git checkout --orphan $BRANCH
+git checkout $BRANCH
 
 git add --all
 
